@@ -1,0 +1,17 @@
+﻿接口名称,登录接口,,
+接口URL,http://localhost:5000/login,,
+请求方法,POST,,
+前置条件,无,,
+请求头,无,,
+是否执行,Y,,
+用例描述,请求参数,响应状态码,响应消息
+传入存在的账号及对应密码,"username=admin
+password=Milor123",1000,success
+传入错误的账号,"username=admin11
+password=Milor123",1002,Account Number Error
+传入错误的密码,"username=admin
+password=Milor12311",1003,fail
+不传入账号,"username=
+password=Milor123",1001,Account Number Null
+不传入密码,"username=admin
+password=",1001,Account Number Null

@@ -1,0 +1,9 @@
+pytest-html
+pytest-xdist
+pytest-rerunfailures
+pytest-ordering
+allure-pytest
+requests
+pycryptodome
+Crypto
+# 终端 pip install -r ./BankpayOS_MS/data/requirements.txt(find . -regex '.*requirements.txt$')
