@@ -4,7 +4,7 @@ Environment configuration prod/test/local
 """
 
 # 运行环境 prod/test/local
-env = 'prod'
+env = 'test'
 
 """=================================  接口地址  ======================================="""
 # 生产环境
