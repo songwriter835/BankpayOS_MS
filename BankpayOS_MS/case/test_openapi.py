@@ -3,6 +3,7 @@ from ulid import ULID
 from BankpayOS_MS.common.api  import OpenApi
 from BankpayOS_MS.common.utils import *
 from BankpayOS_MS.common.database_package import DB
+from BankpayOS_MS.data.EnvConfig import env
 # # 测试数据读取
 API = OpenApi()
 RESET = "\033[0m"  # 重置样式
@@ -87,6 +88,9 @@ class Test_api:
     # 确认代收交易-bank
     @staticmethod
     def test_ConfirmReceipt1():
+        # 如果是线上环境，没有真实汇款流水，pass
+        if env == 'prod':
+            return
         max_amount = [i.get("max_amount") for i in
                       API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records") if
                       i.get("payment_method") == 'Upi']
