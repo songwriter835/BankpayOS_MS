@@ -4,15 +4,15 @@ Environment configuration prod/test/local
 """
 
 # 运行环境 prod/test/local
-env = 'prod'
+env = 'test'
 
 """=================================  接口地址  ======================================="""
 # 生产环境
 PROD_HOST = "https://agentstudio.site"
 # 测试环境
-TEST_HOST = "http://54.199.166.162:8032"
+TEST_HOST = "http://43.207.72.1:8032"
 # 本地
-LOCAL_HOST = "http://192.168.20.18:8032"
+LOCAL_HOST = "http://43.207.72.1:8032"
 # addr
 addr_info = {
     # 创建收银台

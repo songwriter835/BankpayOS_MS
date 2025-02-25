@@ -280,7 +280,7 @@ class Test_api:
 
     # 创建代付记录-vpa
     @staticmethod
-    # @pytest.mark.skipif(reason="子版本不测试该接口,GooglePay接入后")
+    @pytest.mark.skipif(reason="子版本不测试该接口,GooglePay接入后")
     def test_CreatePayment():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
@@ -311,7 +311,7 @@ class Test_api:
 
     # 创建代付记录-bank_code
     @staticmethod
-    # @pytest.mark.skipif(reason="子版本不测试该接口,GooglePay接入后")
+    @pytest.mark.skipif(reason="子版本不测试该接口,GooglePay接入后")
     def test_CreatePayment1():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
@@ -342,7 +342,7 @@ class Test_api:
 
     # 查询代付记录-bill_id
     @staticmethod
-    # @pytest.mark.skipif(reason="子版本不测试该接口,GooglePay接入后")
+    @pytest.mark.skipif(reason="子版本不测试该接口,GooglePay接入后")
     def test_GetPayment():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
@@ -370,7 +370,7 @@ class Test_api:
 
     # 查询代付记录-record_id
     @staticmethod
-    # @pytest.mark.skipif(reason="子版本不测试该接口,GooglePay接入后")
+    @pytest.mark.skipif(reason="子版本不测试该接口,GooglePay接入后")
     def test_GetPayment1():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
