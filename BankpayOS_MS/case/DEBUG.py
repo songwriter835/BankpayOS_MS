@@ -28,7 +28,7 @@ bill_id = str(ULID())
 # pprint(cdata)
 
 ######################## 查询代收记录
-# adata = API.GetReceipt( bill_id = bill_id,)
+# adata = API.GetReceipt( bill_id = '01JQXB02519CT8WW6GX3CHV6ZR',)
 # pprint(adata)
 ######################### 查询代收记录列表
 
