@@ -87,7 +87,7 @@ def check_utf(string):
             return f"不能编码的位置 {i}: {char}"
 
 def random_12num():
-    return ''.join(str(random.randint(0, 9)) for _ in range(12))
+    return str(time.time()).split(".")[0] + ''.join(str(random.randint(0, 9)) for _ in range(2))
 
 
 if __name__ == '__main__':

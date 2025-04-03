@@ -15,75 +15,112 @@ class Test_api:
     # 创建代收交易
     @staticmethod
     def test_CreateReceipt():
+
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records") if
-                      i.get("payment_method") == 'Upi']
+                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      if i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
+
         print(f"{BLUE}用例名称：正确传入参数，能够创建代收单{RESET}")
         bill_id = str(ULID())
+
         # 创建代收记录
-        adata = API.CreateReceipt(bill_id, min_amount,"IND",'1902225p16qojepfbsfcmo8app61wyhh',
-                                            'upi')
+        adata = API.CreateReceipt(bill_id,
+                                  min_amount,
+                                  "IND",
+                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  'upi')
         print("创建代收记录", adata)
-        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
         # 查询代收记录
         Test_api.bill_id = adata.get('data').get("bill_id")
         bdata = API.GetReceipt(bill_id=Test_api.bill_id)
         print("查询代收记录", bdata)
-        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
-        assert adata.get("data").get("status") == bdata.get("data").get("status"), f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
+
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [], \
+            f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert adata.get("data").get("status") == bdata.get("data").get("status"), \
+            f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
 
     # 创建代收交易-bank
     @staticmethod
     def test_CreateReceipt1():
+
+        # 获取最大代收单金额
         max_amount = [i.get("max_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records") if
-                      i.get("payment_method") == 'Upi']
+                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      if i.get("payment_method") == 'Upi']
         max_amount = sorted(max_amount)[0]
+
         print(f"{BLUE}用例名称：正确传入参数，能够创建代收单-bank接单{RESET}")
         bill_id = str(ULID())
+
         # 创建代收记录
-        adata = API.CreateReceipt(bill_id, max_amount,
+        adata = API.CreateReceipt(bill_id,
+                                  max_amount,
                                   'IND',
                                   '1902225p16qojepfbsfcmo8app61wyhh',
                                   'upi')
         print("创建代收记录", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
         # 查询代收记录
         Test_api.bill_id = adata.get('data').get("bill_id")
         bdata = API.GetReceipt(bill_id=Test_api.bill_id)
         print("查询代收记录", bdata)
-        assert bdata.get("code") == 1000 and bdata.get(
-            "msg") == 'Success', f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
-        assert adata.get("data").get("status") == bdata.get("data").get(
-            "status"), f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
+
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [],\
+            f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+
+        assert adata.get("data").get("status") == bdata.get("data").get("status"), \
+            f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
 
     # 确认代收交易
     @staticmethod
     def test_ConfirmReceipt():
+
+        # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records") if
-                      i.get("payment_method") == 'Upi']
+                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      if i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
+
         print(f"{BLUE}用例名称：正确传入参数，能够确认代收交易{RESET}")
         bill_id = str(ULID())
+
         # 创建代收记录
-        adata = API.CreateReceipt(bill_id, min_amount, "IND", '1902225p16qojepfbsfcmo8app61wyhh',
+        adata = API.CreateReceipt(bill_id,
+                                  min_amount,
+                                  "IND",
+                                  '1902225p16qojepfbsfcmo8app61wyhh',
                                   'upi')
         print("创建代收记录", adata)
-        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
         # 确认代收记录
         bdata = API.ConfirmReceipt(bill_id=bill_id, pay_proof_id=random_12num())
         print("确认代收记录", bdata)
-        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', f'确认代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
-        assert bdata.get("data").get("status") == 'Confirming', f'status不正确,确认后:{bdata.get("data").get("status")}'
+
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [], \
+            f'确认代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert bdata.get("data").get("status") == 'Confirming', \
+            f'status不正确,确认后:{bdata.get("data").get("status")}'
+
         # 查询代收记录
         Test_api.bill_id = adata.get('data').get("bill_id")
         cdata = API.GetReceipt(bill_id=Test_api.bill_id)
         print("查询代收记录", cdata)
-        assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success', f'查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
+
+        assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success' and bdata.get("data") != [], \
+            f'查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
 
     # 确认代收交易-bank
     @staticmethod

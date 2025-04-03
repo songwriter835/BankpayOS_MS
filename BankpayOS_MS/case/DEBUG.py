@@ -11,8 +11,11 @@ bill_id = str(ULID())
 """ 代收 """
 
 ######################## 创建
-# adata = API.CreateReceipt(bill_id, "6000",'IND',
-#                                     '1902225p16qojepfbsfcmo8app61wyhh','upi')
+# adata = API.CreateReceipt(bill_id,
+#                           "6000",
+#                           'IND',
+#                           '1902225p16qojepfbsfcmo8app61wyhh',
+#                           'upi')
 #
 # pprint(adata)
 
@@ -25,9 +28,8 @@ bill_id = str(ULID())
 # pprint(cdata)
 
 ######################## 查询代收记录
-# adata = API.GetReceipt('RC2025021906405964256396215980032', bill_id='01JHFBANWT5VXB0RPC6WRT3ZVW')
+# adata = API.GetReceipt( bill_id = bill_id,)
 # pprint(adata)
-
 ######################### 查询代收记录列表
 
 # # 时间筛选
@@ -52,16 +54,16 @@ bill_id = str(ULID())
 
 """ 代付 """
 
-######################## 创建代付记录
+####################### 创建代付记录
 # adata = API.CreatePayment(bill_id,
-#                             '1902225p16qojepfbsfcmo8app61wyhh',
-#                             "5000",
+#                             '5000',
+#                             "1902225p16qojepfbsfcmo8app61wyhh",
 #                             'IND',
-#                             'jooo',
-#                             vpa="sss@upi.com",
-#                             # bank_code='bank_code',
-#                             # holder_account='1234567894521356'
+#                             "Upi",
+#                             vpa="oks@oks"
 #                             )
+#
+#
 # pprint(adata)
 
 ######################### 查询代付记录   01JHSVA0AS34BYRKXZJ5JHHDHC

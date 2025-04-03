@@ -196,7 +196,7 @@ class OpenApi(object):
             }
         return self.Unifiedrequest(data, aotug, inspect.currentframe().f_code.co_name)
 
-    def CreatePayment(self, bill_id, amount, coin_id, country, holder_name, vpa=None, bank_code=None, holder_account=None, aotug=True):
+    def CreatePayment(self, bill_id, amount, coin_id, country, payment_method, vpa=None, aotug=True):
         """
         创建代付记录
         """
@@ -206,18 +206,8 @@ class OpenApi(object):
                 "coin_id": coin_id,
                 "amount": amount,
                 'country': country,
-                "holder_name": holder_name,
+                "payment_method": payment_method,
                 "vpa": vpa
-            }
-        elif holder_account:
-            data = {
-                "bill_id": bill_id,
-                "coin_id": coin_id,
-                "amount": amount,
-                'country': country,
-                "holder_name": holder_name,
-                "holder_account": holder_account,
-                "bank_code": bank_code,
             }
         else:
             raise Exception('upa or holder_account There must be one')
