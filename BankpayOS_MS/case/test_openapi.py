@@ -12,7 +12,7 @@ BLUE = "\033[34m"  # 字体颜色
 
 class Test_api:
 
-    # 创建代收交易
+    # 创建代收交易-upi
     @staticmethod
     def test_CreateReceipt():
 
@@ -53,7 +53,7 @@ class Test_api:
         assert adata.get("data").get("status") == bdata.get("data").get("status"), \
             f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
 
-    # 创建代收交易-bank
+    # 创建代收交易-upi-bank
     @staticmethod
     def test_CreateReceipt1():
 
@@ -88,7 +88,7 @@ class Test_api:
         assert adata.get("data").get("status") == bdata.get("data").get("status"), \
             f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
 
-    # 确认代收交易
+    # 确认代收交易-upi
     @staticmethod
     def test_ConfirmReceipt():
 
@@ -136,7 +136,8 @@ class Test_api:
         assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success' and cdata.get("data") != [], \
             f'查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
 
-    # 确认代收交易-bank
+    # 确认代收交易-upi-bank
+    # （需要保证脚本测试商户配置，bank接单金额大于cashier，不然会导致cashier把bank单子接走，用例失败）
     @staticmethod
     def test_ConfirmReceipt1():
 
@@ -202,7 +203,7 @@ class Test_api:
         assert cdata.get("data").get("status") in ['Success'], \
             f'status不正确,确认后:{cdata.get("data").get("status")}'
 
-    # 取消代收交易
+    # 取消代收交易-upi
     @staticmethod
     def test_CancelReceipt():
 
@@ -243,7 +244,7 @@ class Test_api:
         assert cdata.get("data").get("status") == 'Failure' and cdata.get("data").get("reason") == 'USER_CANCEL', \
             f'status不正确,取消后:{cdata.get("data").get("status")}， reason={cdata.get("data").get("reason")}'
 
-    # 取消代收交易-bank
+    # 取消代收交易-upi-bank
     @staticmethod
     def test_CancelReceipt1():
 
@@ -283,7 +284,7 @@ class Test_api:
         assert cdata.get("data").get("status") == 'Failure' and cdata.get("data").get("reason") == 'USER_CANCEL', \
             f'status不正确,取消后:{cdata.get("data").get("status")}， reason={cdata.get("data").get("reason")}'
 
-    # 查询代收记录--bill_id
+    # 查询代收记录-upi-bill_id
     @staticmethod
     def test_GetReceipt():
 
@@ -317,7 +318,7 @@ class Test_api:
         assert adata.get("data").get("status") == bdata.get("data").get("status"), \
             f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
 
-    # 查询代收记录--record_id
+    # 查询代收记录-upi-record_id
     @staticmethod
     def test_GetReceipt1():
 
@@ -372,7 +373,7 @@ class Test_api:
         assert len(adata.get("data").get('records')) > 4, \
             f'查询结果订单数量不准确:{adata.get("data").get('records')}'
 
-    # 查询代收记录列表-record_ids
+    # 查询代收记录列表-upi-record_ids
     @staticmethod
     def test_GetReceiptList1():
 
@@ -391,7 +392,7 @@ class Test_api:
         assert len(adata.get("data").get('records')) == len(record_ids), \
             f'查询结果订单数量不准确:{adata.get("data").get('records')}'
 
-    # 查询代收记录列表-bill_ids
+    # 查询代收记录列表-upi-bill_ids
     @staticmethod
     def test_GetReceiptList2():
 
@@ -410,7 +411,7 @@ class Test_api:
         assert len(adata.get("data").get('records')) == len(bill_ids), \
             f'查询结果订单数量不准确:{adata.get("data").get('records')}'
 
-    # 创建收银台
+    # 创建收银台-upi
     @staticmethod
     def test_Checkout():
 
@@ -447,7 +448,7 @@ class Test_api:
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [], \
             f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
 
-    # 创建代付记录-vpa
+    # 创建代付记录-upi
     @staticmethod
     def test_CreatePayment():
 
