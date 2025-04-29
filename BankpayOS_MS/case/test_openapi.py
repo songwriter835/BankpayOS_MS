@@ -18,7 +18,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
 
@@ -29,7 +29,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   "IND",
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'upi')
         print("创建代收记录", adata)
 
@@ -59,7 +59,7 @@ class Test_api:
 
         # 获取最大代收单金额
         max_amount = [i.get("max_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         max_amount = sorted(max_amount)[0]
 
@@ -70,7 +70,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   max_amount,
                                   'IND',
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'upi')
         print("创建代收记录", adata)
 
@@ -94,7 +94,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
 
@@ -105,7 +105,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   "IND",
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'upi')
         print("创建代收记录", adata)
 
@@ -137,7 +137,7 @@ class Test_api:
             f'查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
 
     # 确认代收交易-upi-bank
-    # （需要保证脚本测试商户配置，bank接单金额大于cashier，不然会导致cashier把bank单子接走，用例失败）
+    # （需要保证脚本测试商户配置，bank最大接单金额大于cashier，不然会导致cashier把bank单子接走，用例失败）
     @staticmethod
     def test_ConfirmReceipt1():
 
@@ -147,7 +147,7 @@ class Test_api:
 
         # 获取最大代收单金额
         max_amount = [i.get("max_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         max_amount = sorted(max_amount)[0]
 
@@ -158,7 +158,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   max_amount,
                                   "IND",
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'upi')
         print("创建代收记录", adata)
 
@@ -178,7 +178,7 @@ class Test_api:
                 break
             else:
                 if time.time() - start_time > timeout:
-                    print("5秒未查找到该流水！utr获取失败")
+                    print("10秒未查找到该流水！utr获取失败")
                     break
 
                 continue
@@ -194,7 +194,7 @@ class Test_api:
 
         # 查询代收记录
         Test_api.bill_id = adata.get('data').get("bill_id")
-        time.sleep(5)
+        time.sleep(10)
         cdata = API.GetReceipt(bill_id=Test_api.bill_id)
         print("查询代收记录", cdata)
 
@@ -209,7 +209,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
 
@@ -220,7 +220,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   "IND",
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'upi')
         print("创建代收记录", adata)
 
@@ -250,7 +250,7 @@ class Test_api:
 
         # 获取最大代收单金额
         max_amount = [i.get("max_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         max_amount = sorted(max_amount)[0]
 
@@ -261,7 +261,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   max_amount,
                                   "IND",
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'upi')
         print("创建代收记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
@@ -290,7 +290,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
 
@@ -301,7 +301,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   "IND",
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'upi')
         print("创建代收记录", adata)
 
@@ -324,7 +324,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
 
@@ -335,7 +335,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   "IND",
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'upi')
         print("创建代收记录", adata)
 
@@ -417,7 +417,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
 
@@ -427,7 +427,7 @@ class Test_api:
         bill_id = str(ULID())
         adata = API.Checkout(bill_id,
                              min_amount,
-                             "1902225p16qojepfbsfcmo8app61wyhh",
+                             f"{API.getcoinid("INR")}",
                              'IND',
                              'upi')
         print("创建收银台", adata)
@@ -454,7 +454,7 @@ class Test_api:
 
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records")
+                      API.GetServiceConfigsPayment(API.getcoinid("INR")).get("data").get("records")
                       if i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
 
@@ -463,7 +463,7 @@ class Test_api:
         # 创建代付记录
         bill_id = str(ULID())
         adata = API.CreatePayment(bill_id,min_amount,
-                            '1902225p16qojepfbsfcmo8app61wyhh',
+                            f'{API.getcoinid("INR")}',
                             'IND',
                             'jooo',
                             vpa="sss@upi.com",
@@ -481,20 +481,19 @@ class Test_api:
         assert bdata.get("data").get("status") in ['Confirming',
                                                    'Success'], f'status不正确:{bdata.get("data").get("status")}'
 
-    # 创建代付记录-bank_code
+    # 创建代付记录-vpa
     @staticmethod
-    @pytest.mark.skipif(reason="子版本不测试该接口,GooglePay接入后")
     def test_CreatePayment1():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records") if
+                      API.GetServiceConfigsPayment(API.getcoinid("INR")).get("data").get("records") if
                       i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数（bank_code账户），能够创建代付交易{RESET}")
         # 创建代付记录
         bill_id = str(ULID())
         adata = API.CreatePayment(bill_id,min_amount,
-                            '1902225p16qojepfbsfcmo8app61wyhh',
+                            f'{API.getcoinid("INR")}',
                             'IND',
                             'jooo',
                             )
@@ -516,14 +515,14 @@ class Test_api:
     def test_GetPayment():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records") if
+                      API.GetServiceConfigsPayment(API.getcoinid("INR")).get("data").get("records") if
                       i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数bill_id，能够查询代付记录{RESET}")
         # 创建代付记录
         bill_id = str(ULID())
         adata = API.CreatePayment(bill_id,min_amount,
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'IND',
                                   'jooo',
                                   vpa="sss@upi.com",
@@ -544,14 +543,14 @@ class Test_api:
     def test_GetPayment1():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment('1902225p16qojepfbsfcmo8app61wyhh').get("data").get("records") if
+                      API.GetServiceConfigsPayment(API.getcoinid("INR")).get("data").get("records") if
                       i.get("payment_method") == 'Upi']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数record_id，能够查询代付记录{RESET}")
         # 创建代付记录
         bill_id = str(ULID())
         adata = API.CreatePayment(bill_id,min_amount,
-                                  '1902225p16qojepfbsfcmo8app61wyhh',
+                                  f'{API.getcoinid("INR")}',
                                   'IND',
                                   'jooo',
                                   vpa="sss@upi.com",

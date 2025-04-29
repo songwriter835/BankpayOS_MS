@@ -5,8 +5,16 @@ Environment configuration prod/test/local
 
 # 运行环境 prod/test/local
 env = 'test'
+"""=================================  货币列表  ======================================="""
+
+coin_list = {
+    'INR':'1902225p16qojepfbsfcmo8app61wyhh',
+    'USDT':'5ddeeacb13244b0cb772e4af9830f0bf',
+    'TestCoin':'f78d0780abdf40eab8c2f5e5bcb8d855'
+}
 
 """=================================  接口地址  ======================================="""
+
 # 生产环境
 PROD_HOST = "https://agentstudio.site"
 # 测试环境

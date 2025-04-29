@@ -112,6 +112,18 @@ class OpenApi(object):
         except requests.exceptions.JSONDecodeError:
             print("not JSON response:", response.text)
 
+    @staticmethod
+    def getcoinid(coin_name):
+        """
+        获取货币coinid
+        """
+        try:
+            coin_list_ = {x.lower(): y  for x,y in coin_list.items()}
+            return coin_list_.get(coin_name.lower())
+        except Exception as e:
+            print("****** Please enter the correct currency abbreviation",e)
+
+
     def Checkout(self, bill_id, amount, coin_id, country, payment_method, aotug=True):
         """
         创建收银台
