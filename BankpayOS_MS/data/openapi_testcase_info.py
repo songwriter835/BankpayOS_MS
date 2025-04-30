@@ -1,8 +1,8 @@
 ##### common test info
 country = "IND"
 payment_method = ["Upi","NEFT","IMPS"]
-coin = ["INR"]
-
+fiat_coin = ["INR"]
+token_coin = ["USDT"]
 ##### payments test info
 payments_info = {
     "upi":{

@@ -19,7 +19,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
 
@@ -30,7 +30,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   f'{country}',
-                                  f'{API.getcoinid(coin[0])}',
+                                  f'{API.getcoinid(fiat_coin[0])}',
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
 
@@ -60,7 +60,7 @@ class Test_api:
 
         # 获取最大代收单金额
         max_amount = [i.get("max_amount") for i in
-                      API.GetServiceConfigsReceipt(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         max_amount = sorted(max_amount)[0]
 
@@ -71,7 +71,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   max_amount,
                                   f'{country}',
-                                  f'{API.getcoinid(coin[0])}',
+                                  f'{API.getcoinid(fiat_coin[0])}',
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
 
@@ -95,7 +95,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
 
@@ -106,7 +106,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   f'{country}',
-                                  f'{API.getcoinid(coin[0])}',
+                                  f'{API.getcoinid(fiat_coin[0])}',
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
 
@@ -148,7 +148,7 @@ class Test_api:
 
         # 获取最大代收单金额
         max_amount = [i.get("max_amount") for i in
-                      API.GetServiceConfigsReceipt(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         max_amount = sorted(max_amount)[0]
 
@@ -159,7 +159,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   max_amount,
                                   f'{country}',
-                                  f'{API.getcoinid(coin[0])}',
+                                  f'{API.getcoinid(fiat_coin[0])}',
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
 
@@ -210,7 +210,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
 
@@ -221,7 +221,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   f'{country}',
-                                  f'{API.getcoinid(coin[0])}',
+                                  f'{API.getcoinid(fiat_coin[0])}',
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
 
@@ -251,7 +251,7 @@ class Test_api:
 
         # 获取最大代收单金额
         max_amount = [i.get("max_amount") for i in
-                      API.GetServiceConfigsReceipt(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         max_amount = sorted(max_amount)[0]
 
@@ -262,7 +262,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   max_amount,
                                   f'{country}',
-                                  f'{API.getcoinid(coin[0])}',
+                                  f'{API.getcoinid(fiat_coin[0])}',
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
@@ -291,7 +291,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
 
@@ -302,7 +302,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   f'{country}',
-                                  f'{API.getcoinid(coin[0])}',
+                                  f'{API.getcoinid(fiat_coin[0])}',
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
 
@@ -325,7 +325,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
 
@@ -336,7 +336,7 @@ class Test_api:
         adata = API.CreateReceipt(bill_id,
                                   min_amount,
                                   f'{country}',
-                                  f'{API.getcoinid(coin[0])}',
+                                  f'{API.getcoinid(fiat_coin[0])}',
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
 
@@ -418,7 +418,7 @@ class Test_api:
 
         # 获取最小代收单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsReceipt(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsReceipt(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
 
@@ -428,7 +428,7 @@ class Test_api:
         bill_id = str(ULID())
         adata = API.Checkout(bill_id,
                              min_amount,
-                             f"{API.getcoinid(coin[0])}",
+                             f"{API.getcoinid(fiat_coin[0])}",
                              f'{country}',
                              f'{payment_method[0]}')
         print("创建收银台", adata)
@@ -455,7 +455,7 @@ class Test_api:
 
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment(API.getcoinid(coin[0])).get("data").get("records")
+                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records")
                       if i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
 
@@ -464,13 +464,21 @@ class Test_api:
         # 创建代付记录
         bill_id = str(ULID())
         adata = API.CreatePayment(bill_id,min_amount,payments_info,
-                            f'{API.getcoinid(coin[0])}',
+                            f'{API.getcoinid(fiat_coin[0])}',
                             f'{country}',
                             f'{payment_method[0]}',
                             )
         print("创建代付记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
             f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
+        # 订单id写入文件，其他查询用例依赖
+        record_ida = adata.get('data').get("record_id")
+        with open(f"{data_path}/record_ids_test.txt", "w", encoding="utf-8") as file:
+            file.write(record_ida + " ")
+        with open(f"{data_path}/bill_ids_test.txt", "w", encoding="utf-8") as file:
+            file.write(bill_id + " ")
+
         # 查询代付记录
         time.sleep(1)
         Test_api.bill_id = adata.get('data').get("bill_id")
@@ -486,20 +494,28 @@ class Test_api:
     def test_CreatePayment1():
         # 获取最小代付单金额-NEFT
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment(API.getcoinid(coin[0])).get("data").get("records") if
+                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records") if
                       i.get("payment_method") == f'{payment_method[1]}']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数（cash账户），能够创建NEFT代付交易{RESET}")
         # 创建代付记录
         bill_id = str(ULID())
         adata = API.CreatePayment(bill_id,min_amount,payments_info,
-                            f'{API.getcoinid(coin[0])}',
+                            f'{API.getcoinid(fiat_coin[0])}',
                             f'{country}',
                             f'{payment_method[1]}',
                             )
         print("创建代付记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
             f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
+        # 订单id写入文件，其他查询用例依赖
+        record_ida = adata.get('data').get("record_id")
+        with open(f"{data_path}/record_ids_test.txt", "a", encoding="utf-8") as file:
+            file.write(record_ida + " ")
+        with open(f"{data_path}/bill_ids_test.txt", "a", encoding="utf-8") as file:
+            file.write(bill_id + " ")
+
         # 查询代付记录
         time.sleep(1)
         Test_api.bill_id = adata.get('data').get("bill_id")
@@ -515,20 +531,28 @@ class Test_api:
     def test_CreatePayment2():
         # 获取最小代付单金额-IMPS
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment(API.getcoinid(coin[0])).get("data").get("records") if
+                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records") if
                       i.get("payment_method") == f'{payment_method[2]}']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数（cash账户），能够创建IMPS代付交易{RESET}")
         # 创建代付记录
         bill_id = str(ULID())
         adata = API.CreatePayment(bill_id,min_amount,payments_info,
-                            f'{API.getcoinid(coin[0])}',
+                            f'{API.getcoinid(fiat_coin[0])}',
                             f'{country}',
                             f'{payment_method[2]}',
                             )
         print("创建代付记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
             f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
+        # 订单id写入文件，其他查询用例依赖
+        record_ida = adata.get('data').get("record_id")
+        with open(f"{data_path}/record_ids_test.txt", "a", encoding="utf-8") as file:
+            file.write(record_ida + " ")
+        with open(f"{data_path}/bill_ids_test.txt", "a", encoding="utf-8") as file:
+            file.write(bill_id + " ")
+
         # 查询代付记录
         time.sleep(1)
         Test_api.bill_id = adata.get('data').get("bill_id")
@@ -538,19 +562,20 @@ class Test_api:
             f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert bdata.get("data").get("status") in ["Pending"], \
             f'status不正确:{bdata.get("data").get("status")}'
+
     # 查询代付记录-bill_id-upi
     @staticmethod
     def test_GetPayment():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment(API.getcoinid(coin[0])).get("data").get("records") if
+                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records") if
                       i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数bill_id，能够查询代付记录{RESET}")
         # 创建代付记录
         bill_id = str(ULID())
         adata = API.CreatePayment(bill_id,min_amount,payments_info,
-                            f'{API.getcoinid(coin[0])}',
+                            f'{API.getcoinid(fiat_coin[0])}',
                             f'{country}',
                             f'{payment_method[1]}',
                             )
@@ -569,14 +594,14 @@ class Test_api:
     def test_GetPayment1():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment(API.getcoinid(coin[0])).get("data").get("records") if
+                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records") if
                       i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数record_id，能够查询代付记录{RESET}")
         # 创建代付记录
         bill_id = str(ULID())
         adata = API.CreatePayment(bill_id,min_amount,payments_info,
-                            f'{API.getcoinid(coin[0])}',
+                            f'{API.getcoinid(fiat_coin[0])}',
                             f'{country}',
                             f'{payment_method[1]}',
                             )
@@ -590,27 +615,29 @@ class Test_api:
         assert bdata.get("code") == 1000 and bdata.get(
             "msg") == 'Success', f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
 
-    # 查询代付列表-bill_ids
+    # 查询代付列表-record_ids-upi-NEFT-IMPS
     @staticmethod
     def test_GetPaymentList():
-        print(f"{BLUE}用例名称：正确传入参数bill_ids，能够查询代付记录列表{RESET}")
-        # 查询代付记录列表
-        adata = API.GetPaymentList(bill_ids=['41e9981f-bd86-4491-b5ff-c2ad2062fe7f',
-                                             '9ecd0533-2421-49c1-9345-f32d415c5978',
-                                             '01154a27-1e16-457e-9604-fc2af6628086'])
+        print(f"{BLUE}用例名称：正确传入参数record_ids，能够查询代付记录列表{RESET}")
+        # 查询代收记录列表
+        # 获取record_ids文件内容
+        with open(f"{data_path}/record_ids_test.txt", encoding="utf-8") as file:
+            record_ids = file.read().split()
+        adata = API.GetPaymentList(record_ids=record_ids)
         print("查询代付记录列表", adata)
         assert adata.get("code") == 1000 and adata.get(
             "msg") == 'Success', f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) == 3, f'查询结果订单数量不准确:{adata.get("data").get('records')}'
 
-    # 查询代付列表-record_ids
+    # 查询代付列表-bill_ids-upi-NEFT-IMPS
     @staticmethod
     def test_GetPaymentList1():
-        print(f"{BLUE}用例名称：正确传入参数record_ids，能够查询代付记录列表{RESET}")
-        # 查询代付记录列表
-        adata = API.GetPaymentList(record_ids=['PM2024122003362942104304848343041',
-                                               'PM2024122002324142088250696798209',
-                                               'PM2024122002332742088443198574593'])
+        print(f"{BLUE}用例名称：正确传入参数bill_ids，能够查询代付记录列表{RESET}")
+        # 查询代收记录列表
+        # 获取record_ids文件内容
+        with open(f"{data_path}/bill_ids_test.txt", encoding="utf-8") as file:
+            bill_ids = file.read().split()
+        adata = API.GetPaymentList(bill_ids=bill_ids)
         print("查询代付记录列表", adata)
         assert adata.get("code") == 1000 and adata.get(
             "msg") == 'Success', f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
@@ -628,12 +655,23 @@ class Test_api:
             "msg") == 'Success', f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) > 4, f'查询结果订单数量不准确:{adata.get("data").get('records')}'
 
-    # 查询现金资产余额
+    # 查询现金资产余额-INR
     @staticmethod
     def test_GetBalance():
         print(f"{BLUE}用例名称：传入正确参数，能够查询现金资产余额{RESET}")
         # 查询现金资产余额
-        adata = API.GetBalance("1902225p16qojepfbsfcmo8app61wyhh")
+        adata = API.GetBalance(API.getcoinid(fiat_coin[0]))
+        print("查询现金资产余额", adata)
+        assert adata.get("code") == 1000 and adata.get(
+            "msg") == 'Success', f'查询现金资产余额，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert 'assets' in adata.get("data"), f'查询结果不准确:{adata.get("data").get('assets')}'
+
+    # 查询现金资产余额-USDT
+    @staticmethod
+    def test_GetBalance1():
+        print(f"{BLUE}用例名称：传入正确参数，能够查询现金资产余额{RESET}")
+        # 查询现金资产余额
+        adata = API.GetBalance(API.getcoinid(token_coin[0]))
         print("查询现金资产余额", adata)
         assert adata.get("code") == 1000 and adata.get(
             "msg") == 'Success', f'查询现金资产余额，错误码[{adata.get("code")}]{adata.get("msg")}'
