@@ -18,3 +18,6 @@ payments_info = {
         "bank_code": "IDFB0021251"
     },
 }
+
+##### Withdraw_addr
+Withdraw_addr = "0xCb74CF563753A49E40e938f7C4356faB83664b1A"

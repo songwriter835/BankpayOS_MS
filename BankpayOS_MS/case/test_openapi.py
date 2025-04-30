@@ -494,8 +494,8 @@ class Test_api:
     def test_CreatePayment1():
         # 获取最小代付单金额-NEFT
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records") if
-                      i.get("payment_method") == f'{payment_method[1]}']
+                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records")
+                      if i.get("payment_method") == f'{payment_method[1]}']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数（cash账户），能够创建NEFT代付交易{RESET}")
         # 创建代付记录
@@ -531,8 +531,8 @@ class Test_api:
     def test_CreatePayment2():
         # 获取最小代付单金额-IMPS
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records") if
-                      i.get("payment_method") == f'{payment_method[2]}']
+                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records")
+                      if i.get("payment_method") == f'{payment_method[2]}']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数（cash账户），能够创建IMPS代付交易{RESET}")
         # 创建代付记录
@@ -568,8 +568,8 @@ class Test_api:
     def test_GetPayment():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records") if
-                      i.get("payment_method") == f'{payment_method[0]}']
+                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records")
+                      if i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数bill_id，能够查询代付记录{RESET}")
         # 创建代付记录
@@ -580,22 +580,22 @@ class Test_api:
                             f'{payment_method[1]}',
                             )
         print("创建代付记录", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         # 查询代付记录
         Test_api.bill_id = adata.get('data').get("bill_id")
         bdata = API.GetPayment(bill_id=Test_api.bill_id)
         print("查询代付记录", bdata)
-        assert bdata.get("code") == 1000 and bdata.get(
-            "msg") == 'Success', f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
+            f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
 
     # 查询代付记录-record_id-upi
     @staticmethod
     def test_GetPayment1():
         # 获取最小代付单金额
         min_amount = [i.get("min_amount") for i in
-                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records") if
-                      i.get("payment_method") == f'{payment_method[0]}']
+                      API.GetServiceConfigsPayment(API.getcoinid(fiat_coin[0])).get("data").get("records")
+                      if i.get("payment_method") == f'{payment_method[0]}']
         min_amount = sorted(min_amount)[0]
         print(f"{BLUE}用例名称：正确传入参数record_id，能够查询代付记录{RESET}")
         # 创建代付记录
@@ -606,41 +606,41 @@ class Test_api:
                             f'{payment_method[1]}',
                             )
         print("创建代付记录", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         # 查询代付记录
         Test_api.record_id = adata.get('data').get("record_id")
         bdata = API.GetPayment(record_id=Test_api.record_id)
         print("查询代付记录", bdata)
-        assert bdata.get("code") == 1000 and bdata.get(
-            "msg") == 'Success', f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
+            f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
 
     # 查询代付列表-record_ids-upi-NEFT-IMPS
     @staticmethod
     def test_GetPaymentList():
         print(f"{BLUE}用例名称：正确传入参数record_ids，能够查询代付记录列表{RESET}")
-        # 查询代收记录列表
+        # 查询代付记录列表
         # 获取record_ids文件内容
         with open(f"{data_path}/record_ids_test.txt", encoding="utf-8") as file:
             record_ids = file.read().split()
         adata = API.GetPaymentList(record_ids=record_ids)
         print("查询代付记录列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) == 3, f'查询结果订单数量不准确:{adata.get("data").get('records')}'
 
     # 查询代付列表-bill_ids-upi-NEFT-IMPS
     @staticmethod
     def test_GetPaymentList1():
         print(f"{BLUE}用例名称：正确传入参数bill_ids，能够查询代付记录列表{RESET}")
-        # 查询代收记录列表
-        # 获取record_ids文件内容
+        # 查询代付记录列表
+        # 获取bill_ids文件内容
         with open(f"{data_path}/bill_ids_test.txt", encoding="utf-8") as file:
             bill_ids = file.read().split()
         adata = API.GetPaymentList(bill_ids=bill_ids)
         print("查询代付记录列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) == 3, f'查询结果订单数量不准确:{adata.get("data").get('records')}'
 
     # 查询代付列表-time
@@ -651,25 +651,25 @@ class Test_api:
         adata = API.GetPaymentList(int(str(time.time() - 89 * 24 * 3600).split(".")[0]),
                                    int(str(time.time()).split(".")[0]))
         print("查询代付记录列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) > 4, f'查询结果订单数量不准确:{adata.get("data").get('records')}'
 
     # 查询现金资产余额-INR
     @staticmethod
     def test_GetBalance():
-        print(f"{BLUE}用例名称：传入正确参数，能够查询现金资产余额{RESET}")
+        print(f"{BLUE}用例名称：传入正确参数，能够查询INR资产余额{RESET}")
         # 查询现金资产余额
         adata = API.GetBalance(API.getcoinid(fiat_coin[0]))
         print("查询现金资产余额", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询现金资产余额，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询现金资产余额，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert 'assets' in adata.get("data"), f'查询结果不准确:{adata.get("data").get('assets')}'
 
     # 查询现金资产余额-USDT
     @staticmethod
     def test_GetBalance1():
-        print(f"{BLUE}用例名称：传入正确参数，能够查询现金资产余额{RESET}")
+        print(f"{BLUE}用例名称：传入正确参数，能够查询USDT资产余额{RESET}")
         # 查询现金资产余额
         adata = API.GetBalance(API.getcoinid(token_coin[0]))
         print("查询现金资产余额", adata)
@@ -677,81 +677,97 @@ class Test_api:
             "msg") == 'Success', f'查询现金资产余额，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert 'assets' in adata.get("data"), f'查询结果不准确:{adata.get("data").get('assets')}'
 
-    # 代币换法币
-    @staticmethod
-    def test_CryptoToCurrency():
-        print(f"{BLUE}用例名称：传入正确参数，代币换法币换币成功{RESET}")
-        # 查询现金资产余额
-        adata = API.GetBalance("5ddeeacb13244b0cb772e4af9830f0bf")
-        print("查询现金资产余额", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询现金资产余额失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        testcoin_amount = adata.get("data").get("assets")[0].get("balance")
-        # 代币换法币
-        bdata = API.CryptoToCurrency('5ddeeacb13244b0cb772e4af9830f0bf',
-                                     '1902225p16qojepfbsfcmo8app61wyhh',
-                                     '0.01',
-                                     '0')
-        print("代币换法币", bdata)
-        assert bdata.get("code") == 1000 and bdata.get(
-            "msg") == 'Success', f'代币换法币失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
-        testcoin_amount = round(float(testcoin_amount) - float('0.01'), 4)
-        # 查询现金资产余额
-        cdata = API.GetBalance("5ddeeacb13244b0cb772e4af9830f0bf")
-        print("查询现金资产余额", cdata)
-        assert cdata.get("code") == 1000 and cdata.get(
-            "msg") == 'Success', f'查询现金资产余额失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
-        assert testcoin_amount == round(float(cdata.get("data").get("assets")[0].get("balance")), 4), "换币后余额不正确"
-
     # 法币换代币
     @staticmethod
     def test_CurrencyToCrypto():
         print(f"{BLUE}用例名称：传入正确参数，法币换代币换币成功{RESET}")
         # 查询现金资产余额
-        adata = API.GetBalance("1902225p16qojepfbsfcmo8app61wyhh")
+        adata = API.GetBalance(API.getcoinid(fiat_coin[0]))
         print("查询现金资产余额", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询现金资产余额失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        testcoin_amount = adata.get("data").get("assets")[0].get("balance")
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询现金资产余额失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        coin_amount = adata.get("data").get("assets")[0].get("balance")
         # 法币换代币
-        bdata = API.CurrencyToCrypto('1902225p16qojepfbsfcmo8app61wyhh',
-                                     '5ddeeacb13244b0cb772e4af9830f0bf',
-                                     '0.01',
+        bdata = API.CurrencyToCrypto(f'{API.getcoinid(fiat_coin[0])}',
+                                     f'{API.getcoinid(token_coin[0])}',
+                                     '100',
                                      '0')
         print("法币换代币", bdata)
         assert bdata.get("code") == 1000 and bdata.get(
             "msg") == 'Success', f'代币换法币失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
-        testcoin_amount = round(float(testcoin_amount) - float('0.01'), 4)
-        # 查询现金资产余额
-        cdata = API.GetBalance("1902225p16qojepfbsfcmo8app61wyhh")
-        print("查询现金资产余额", cdata)
-        assert cdata.get("code") == 1000 and cdata.get(
-            "msg") == 'Success', f'查询现金资产余额失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
-        assert testcoin_amount == round(float(cdata.get("data").get("assets")[0].get("balance")), 4), "换币后余额不正确"
+        coin_amount = round(float(coin_amount) - float('100'), 4)
 
-    # 获取换币记录
+        # 订单id写入文件，其他查询用例依赖
+        record_ida = bdata.get('data').get("record_id")
+        with open(f"{data_path}/record_ids_test.txt", "w", encoding="utf-8") as file:
+            file.write(record_ida + " ")
+
+        # 查询现金资产余额
+        cdata = API.GetBalance(API.getcoinid(fiat_coin[0]))
+        print("查询现金资产余额", cdata)
+        assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success', \
+            f'查询现金资产余额失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
+        assert coin_amount == round(float(cdata.get("data").get("assets")[0].get("balance")), 4), "换币后余额不正确"
+
+    # 代币换法币
+    @staticmethod
+    def test_CryptoToCurrency():
+        print(f"{BLUE}用例名称：传入正确参数，代币换法币换币成功{RESET}")
+        # 查询现金资产余额
+        adata = API.GetBalance(API.getcoinid(token_coin[0]))
+        print("查询USDT资产余额", adata)
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询USDT资产余额失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        coin_amount = adata.get("data").get("assets")[0].get("balance")
+        # 代币换法币
+        bdata = API.CryptoToCurrency(f'{API.getcoinid(token_coin[0])}',
+                                     f'{API.getcoinid(fiat_coin[0])}',
+                                     '0.1',
+                                     '0')
+        print("代币换法币", bdata)
+        assert bdata.get("code") == 1000 and bdata.get(
+            "msg") == 'Success', f'代币换法币失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        coin_amount = round(float(coin_amount) - float('0.1'), 4)
+
+        # 订单id写入文件，其他查询用例依赖
+        record_ida = bdata.get('data').get("record_id")
+        with open(f"{data_path}/record_ids_test.txt", "a", encoding="utf-8") as file:
+            file.write(record_ida + " ")
+
+        # 查询现金资产余额
+        cdata = API.GetBalance("5ddeeacb13244b0cb772e4af9830f0bf")
+        print("查询USDT资产余额", cdata)
+        assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success', \
+            f'查询USDT资产余额失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
+        assert coin_amount == round(float(cdata.get("data").get("assets")[0].get("balance")), 4), "换币后余额不正确"
+
+    # 获取换币记录-record_id
     @staticmethod
     def test_GetSwap():
         print(f"{BLUE}用例名称：传入正确参数，获取换币记录成功{RESET}")
+        # 获取record_ids文件内容
+        with open(f"{data_path}/record_ids_test.txt", encoding="utf-8") as file:
+            record_ids = file.read().split()
         # 获取换币记录
-        adata = API.GetSwap("SW2025011411394551285621112573952")
+        adata = API.GetSwap(record_ids[0])
         print("查询现金资产余额", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'获取换币记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'获取换币记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data")) > 0,f'获取换币记录失败，未查找到订单'
 
     # 获取换币记录列表-record_ids
     @staticmethod
     def test_GetSwapList():
         print(f"{BLUE}用例名称：正确传入参数record_ids，获取换币记录列表成功{RESET}")
+        # 获取record_ids文件内容
+        with open(f"{data_path}/record_ids_test.txt", encoding="utf-8") as file:
+            record_ids = file.read().split()
         # 获取换币记录列表
-        adata = API.GetSwapList(['SW2025011002472249702087524618240',
-                                 'SW2025011003192049710131864145920',
-                                 'SW2025011003193749710203796459520'])
+        adata = API.GetSwapList(record_ids)
         print("获取换币记录列表", adata)
         assert adata.get("code") == 1000 and adata.get(
             "msg") == 'Success', f'获取换币记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get("records")) == 3,f'获取换币记录列表失败，查找到的订单数量不对'
+        assert len(adata.get("data").get("records")) == 2,f'获取换币记录列表失败，查找到的订单数量不对'
 
     # 获取换币记录列表-time
     @staticmethod
@@ -770,10 +786,10 @@ class Test_api:
     def test_GetDeposit():
         print(f"{BLUE}用例名称：传入正确参数，查询充值记录成功{RESET}")
         # 查询充值记录
-        adata = API.GetDeposit('DP2024123008175445799005908635648')
+        adata = API.GetDeposit('DP2025042703445688492079289733120')
         print("查询充值记录", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询充值记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询充值记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data")) > 0, f'查询充值记录失败，未查找到订单'
 
     # 查询充值列表-record_ids
@@ -781,12 +797,12 @@ class Test_api:
     def test_GetDepositList():
         print(f"{BLUE}用例名称：正确传入参数record_ids，查询充值列表成功{RESET}")
         # 查询充值列表
-        adata = API.GetDepositList(['DP2025010111143346568234698149888',
-                                    'DP2025010210492246924286107062272',
-                                    'DP2024123106252646133090539540480'])
+        adata = API.GetDepositList(['DP2025042703445688492079289733120',
+                                    'DP2025042206312886722047366926336',
+                                    'DP2025042206292286721519757037568'])
         print("查询充值列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询充值列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询充值列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get("records")) == 3, f'查询充值列表失败，查找到的订单数量不对'
 
     # 查询充值列表-time
@@ -797,79 +813,129 @@ class Test_api:
         adata = API.GetDepositList(start_at=int(str(time.time() - 89 * 24 * 3600).split(".")[0]),
                                    end_at=int(str(time.time()).split(".")[0]))
         print("查询充值列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询充值列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询充值列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get("records")) > 3, f'查询充值列表失败，查找到的订单数量不对(除非三个月内没有充值订单)'
 
     # 代币提现
     @staticmethod
     def test_ApplyCryptoWithdraw():
-        bill_id = str(ULID())
+
         print(f"{BLUE}用例名称：正确传入参数，创建代币提现订单成功{RESET}")
         # 代币提现
+        bill_id = str(ULID())
         adata = API.ApplyCryptoWithdraw(bill_id,
-                                        '646258fb44e54b3d82775187f9f3e032',
-                                        '0.001',
-                                        '0xCb74CF563753A49E40e938f7C4356faB83664b1A',
-                                        'ETH_SEPOLIA',
+                                        f'{API.getcoinid(token_coin[0])}',
+                                        '0.1',
+                                        f'{Withdraw_addr}',
+                                        'POLYGON',
                                         )
         print("代币提现", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
+        # 订单id写入文件，其他查询用例依赖
+        record_ida = adata.get('data').get("record_id")
+        with open(f"{data_path}/record_ids_test.txt", "w", encoding="utf-8") as file:
+            file.write(record_ida + " ")
+        with open(f"{data_path}/bill_ids_test.txt", "w", encoding="utf-8") as file:
+            file.write(bill_id + " ")
+
         # 查询提现记录
         Test_api.bill_id = adata.get('data').get("bill_id")
         bdata = API.GetWithdraw(bill_id=Test_api.bill_id)
         print("查询提现记录", bdata)
-        assert bdata.get("code") == 1000 and bdata.get(
-            "msg") == 'Success', f'查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
+            f'查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert len(bdata.get("data")) > 0, f'查询提现记录失败，未查到订单'
 
     # 查询提现记录-record_id
     @staticmethod
     def test_GetWithdraw():
         print(f"{BLUE}用例名称：正确传入record_id，查询提现记录成功{RESET}")
+        # 代币提现
+        bill_id = str(ULID())
+        adata = API.ApplyCryptoWithdraw(bill_id,
+                                        f'{API.getcoinid(token_coin[0])}',
+                                        '0.1',
+                                        f'{Withdraw_addr}',
+                                        'POLYGON',
+                                        )
+        print("代币提现", adata)
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
+        # 订单id写入文件，其他查询用例依赖
+        record_ida = adata.get('data').get("record_id")
+        with open(f"{data_path}/record_ids_test.txt", "a", encoding="utf-8") as file:
+            file.write(record_ida + " ")
+        with open(f"{data_path}/bill_ids_test.txt", "a", encoding="utf-8") as file:
+            file.write(bill_id + " ")
+
         # 查询提现记录
-        adata = API.GetWithdraw(record_id='WD2025011503193551522138003214336')
+        bdata = API.GetWithdraw(record_id=adata.get("data").get("record_id"))
         print("查询提现记录", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询提现记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data")) > 0, f'查询提现记录失败，未查到订单'
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
+            f'查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert len(bdata.get("data")) > 0, f'查询提现记录失败，未查到订单'
 
     # 查询提现记录-bill_id
     @staticmethod
     def test_GetWithdraw1():
         print(f"{BLUE}用例名称：正确传入bill_id，查询提现记录成功{RESET}")
+        # 代币提现
+        bill_id = str(ULID())
+        adata = API.ApplyCryptoWithdraw(bill_id,
+                                        f'{API.getcoinid(token_coin[0])}',
+                                        '0.1',
+                                        f'{Withdraw_addr}',
+                                        'POLYGON',
+                                        )
+        print("代币提现", adata)
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+
+        # 订单id写入文件，其他查询用例依赖
+        record_ida = adata.get('data').get("record_id")
+        with open(f"{data_path}/record_ids_test.txt", "a", encoding="utf-8") as file:
+            file.write(record_ida + " ")
+        with open(f"{data_path}/bill_ids_test.txt", "a", encoding="utf-8") as file:
+            file.write(bill_id + " ")
+
         # 查询提现记录
-        adata = API.GetWithdraw(bill_id='01JHKZJFVMVWJWG9J1MAH73WDP')
+        bdata = API.GetWithdraw(bill_id=adata.get("data").get("bill_id"))
         print("查询提现记录", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询提现记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data")) > 0, f'查询提现记录失败，未查到订单'
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
+            f'查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert len(bdata.get("data")) > 0, f'查询提现记录失败，未查到订单'
 
     # 查询提现列表-record_ids
     @staticmethod
     def test_GetWithdrawList():
         print(f"{BLUE}用例名称：正确传入record_ids，查询提现列表成功{RESET}")
+        # 获取record_ids文件内容
+        with open(f"{data_path}/record_ids_test.txt", encoding="utf-8") as file:
+            record_ids = file.read().split()
         # 查询提现记录
-        adata = API.GetWithdrawList(record_ids=['WD2024123112211246222621515190273',
-                                                'WD2024123112192746222179636875265',
-                                                'WD2024123112171146221607881936897'])
+        adata = API.GetWithdrawList(record_ids=record_ids)
         print("查询提现记录列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) == 3, f'查询提现记录数量不对，未查到订单'
 
     # 查询提现列表-bill_ids
     @staticmethod
     def test_GetWithdrawList1():
         print(f"{BLUE}用例名称：正确传入bill_ids，查询提现列表成功{RESET}")
+        # 查询代付记录列表
+        # 获取bill_ids文件内容
+        with open(f"{data_path}/bill_ids_test.txt", encoding="utf-8") as file:
+            bill_ids = file.read().split()
         # 查询提现记录
-        adata = API.GetWithdrawList(bill_ids=['01JH7JPCP842HDN730AYCCZ4N9',
-                                              '01JH7JW21WSWG1NEVXNXNGX7JP',
-                                              '01JHM04EX3Y9JTSFK4WPCFV3DW'])
+        adata = API.GetWithdrawList(bill_ids=bill_ids)
         print("查询提现记录列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) == 3, f'查询提现记录数量不对，未查到订单'
 
     # 查询提现列表-time
@@ -880,9 +946,9 @@ class Test_api:
         adata = API.GetWithdrawList(start_at=int(str(time.time() - 89 * 24 * 3600).split(".")[0]),
                                     end_at=int(str(time.time()).split(".")[0]))
         print("查询提现记录列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) > 1, f'查询提现记录数量不对，未查到订单'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) > 2, f'查询提现记录数量不对，未查到订单'
 
     # 获取银行码列表
     @staticmethod
@@ -895,15 +961,15 @@ class Test_api:
             "msg") == 'Success', f'获取银行码列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) > 0, f'获取银行码列表数量不对，未查到'
 
-    # 获取收款单配置
+    # 获取收款单配置-INR
     @staticmethod
     def test_GetServiceConfigsReceipt():
         print(f"{BLUE}用例名称：传入正确参数，获取收款单配置成功{RESET}")
         # 获取收款单配置
-        adata = API.GetServiceConfigsReceipt("1902225p16qojepfbsfcmo8app61wyhh")
+        adata = API.GetServiceConfigsReceipt(f"{API.getcoinid(fiat_coin[0])}")
         print("获取收款单配置", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'获取收款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'获取收款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) > 1, f'获取收款单配置数量不对，至少存在两种支付方式配置'
 
     # 获取付款单配置
@@ -911,8 +977,8 @@ class Test_api:
     def test_GetServiceConfigsPayment():
         print(f"{BLUE}用例名称：传入正确参数，获取付款单配置成功{RESET}")
         # 获取付款单配置
-        adata = API.GetServiceConfigsPayment("1902225p16qojepfbsfcmo8app61wyhh")
+        adata = API.GetServiceConfigsPayment(f"{API.getcoinid(fiat_coin[0])}")
         print("获取付款单配置", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'获取付款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'获取付款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) > 0, f'获取付款单配置数量不对，至少存在一种支付方式配置'
