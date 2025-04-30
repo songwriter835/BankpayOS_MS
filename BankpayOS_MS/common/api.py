@@ -123,7 +123,6 @@ class OpenApi(object):
         except Exception as e:
             print("****** Please enter the correct currency abbreviation",e)
 
-
     def Checkout(self, bill_id, amount, coin_id, country, payment_method, aotug=True):
         """
         创建收银台
@@ -208,21 +207,24 @@ class OpenApi(object):
             }
         return self.Unifiedrequest(data, aotug, inspect.currentframe().f_code.co_name)
 
-    def CreatePayment(self, bill_id, amount, coin_id, country, payment_method, vpa=None, aotug=True):
+    def CreatePayment(self, bill_id, amount, payments_info, coin_id, country, payment_method, aotug=True):
         """
         创建代付记录
         """
-        if vpa:
-            data = {
-                "bill_id": bill_id,
-                "coin_id": coin_id,
-                "amount": amount,
-                'country': country,
-                "payment_method": payment_method,
-                "vpa": vpa
-            }
+        data = {
+            "bill_id": bill_id,
+            "amount": amount,
+            "coin_id": coin_id,
+            "country": country,
+            "payment_method": payment_method
+        }
+        if str(payment_method).lower() == "upi":
+            data.update(payments_info.get("upi"))
+
+        elif str(payment_method).lower() in ["neft","imps"]:
+            data.update(payments_info.get("cash"))
         else:
-            raise Exception('upa or holder_account There must be one')
+            raise Exception('upi or cash There must be one')
         return self.Unifiedrequest(data, aotug, inspect.currentframe().f_code.co_name)
 
     def GetPayment(self, record_id=None, bill_id=None, aotug=True):
