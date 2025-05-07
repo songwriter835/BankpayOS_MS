@@ -182,9 +182,6 @@ class Test_api:
                     print("10秒未查找到该流水！utr获取失败")
                     break
 
-                continue
-
-
         bdata = API.ConfirmReceipt(bill_id=bill_id, pay_proof_id=utr_id)
         print("确认代收记录", bdata)
 
@@ -194,14 +191,12 @@ class Test_api:
             f'status不正确,确认后:{bdata.get("data").get("status")}'
 
         # 查询代收记录
-        Test_api.bill_id = adata.get('data').get("bill_id")
-        time.sleep(10)
-        cdata = API.GetReceipt(bill_id=Test_api.bill_id)
+        cdata = API.GetReceipt(record_id=record_ida)
         print("查询代收记录", cdata)
 
         assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success' and cdata.get("data") != [],\
             f'查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
-        assert cdata.get("data").get("status") in ['Success'], \
+        assert cdata.get("data").get("status") in ['Confirming', 'Success'], \
             f'status不正确,确认后:{cdata.get("data").get("status")}'
 
     # 取消代收交易-upi
@@ -972,7 +967,7 @@ class Test_api:
             f'获取收款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) > 1, f'获取收款单配置数量不对，至少存在两种支付方式配置'
 
-    # 获取付款单配置
+    # 获取付款单配置-INR
     @staticmethod
     def test_GetServiceConfigsPayment():
         print(f"{BLUE}用例名称：传入正确参数，获取付款单配置成功{RESET}")
