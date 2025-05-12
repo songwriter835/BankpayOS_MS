@@ -1,0 +1,11 @@
+﻿用例编号,用例标题,请求地址,请求方式,响应状态码
+Ap-of-0001,测试服商户端，能够正常访问,https://betamerchantconsole.agentstudio.site/,Get,200
+Ap-of-0002,测试服运营端，能够正常访问,https://betaadminconsole.agentstudio.site/,Get,200
+Ap-of-0003,正式服商户端，能够正常访问,https://console.agentstudio.site/,Get,200
+Ap-of-0004,正式服运营端，能够正常访问,https://backstage.agentstudio.site/,Get,200
+Ap-of-0005,cashier官网，能够正常访问,https://cashier.agentstudio.site/,Get,200
+Ap-of-0006,商户官网，能够正常访问,https://agentstudio.site/,Get,200
+Ap-of-0007,商户openapi文档，能够正常访问,https://agentstudio.site/doc,Get,200
+Ap-of-0008,cashier使用手册，能够正常访问,https://ljwksd8dbi1.sg.larksuite.com/docx/HyxOdvAY3ogvzexzB6tlddE7gge,Get,200
+Ap-of-0009,拉米牌游戏官网，能够正常访问,https://arialalign.in/,Get,200
+Ap-of-0010,拉米牌游戏测试服务，能够正常访问,https://game.arialalign.in/,Get,200
