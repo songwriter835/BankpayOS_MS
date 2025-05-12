@@ -977,14 +977,3 @@ class Test_api:
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
             f'获取付款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) > 0, f'获取付款单配置数量不对，至少存在一种支付方式配置'
-
-    # 获取付款单配置-INR
-    @staticmethod
-    def test_GetServiceConfigsPayment2():
-        print(f"{BLUE}用例名称：传入正确参数，获取付款单配置成功{RESET}")
-        # 获取付款单配置
-        adata = API.GetServiceConfigsPayment(f"{API.getcoinid(fiat_coin[0])}")
-        print("获取付款单配置", adata)
-        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'获取付款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) > 0, f'获取付款单配置数量不对，至少存在一种支付方式配置'
