@@ -38,8 +38,10 @@ class DB(object):
         """
         功能描述：关闭游标，关闭连接
         """
-        self.curs.close()                                           # 关闭游标
-        self.conn.close()                                           # 关闭连接
+        if hasattr(self, 'curs') and self.curs:                                          # 关闭游标
+            self.curs.close()
+        if hasattr(self, 'conn') and self.conn:                                          # 关闭连接
+            self.conn.close()
 
 if __name__ == '__main__':
     db = DB()

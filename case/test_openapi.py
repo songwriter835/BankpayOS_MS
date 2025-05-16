@@ -8,8 +8,8 @@ from BankpayOS_MS.data.EnvConfig import env
 # # 测试数据读取
 API = OpenApi()
 RESET = "\033[0m"  # 重置样式
-BLUE = "\033[34m"  # 字体颜色
-
+BLUE = "\033[34m"  # 设置蓝色
+YELLOW = "\033[33m"# 设置黄色
 
 class Test_api:
 
@@ -42,7 +42,7 @@ class Test_api:
             file.write(bill_id + " ")
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}{RESET}'
 
         # 查询代收记录
         Test_api.bill_id = adata.get('data').get("bill_id")
@@ -50,9 +50,9 @@ class Test_api:
         print("查询代收记录", bdata)
 
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [], \
-            f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}{RESET}'
         assert adata.get("data").get("status") == bdata.get("data").get("status"), \
-            f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
+            f'{YELLOW}status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}{RESET}'
 
     # 创建代收交易-upi-bank
     @staticmethod
@@ -76,7 +76,7 @@ class Test_api:
         print("创建代收记录", adata)
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 查询代收记录
         Test_api.bill_id = adata.get('data').get("bill_id")
@@ -84,10 +84,10 @@ class Test_api:
         print("查询代收记录", bdata)
 
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [],\
-            f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
 
         assert adata.get("data").get("status") == bdata.get("data").get("status"), \
-            f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
+            f'{YELLOW}status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
 
     # 确认代收交易-upi
     @staticmethod
@@ -118,16 +118,16 @@ class Test_api:
             file.write(bill_id + " ")
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 确认代收记录
         bdata = API.ConfirmReceipt(bill_id=bill_id, pay_proof_id=random_12num())
         print("确认代收记录", bdata)
 
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [], \
-            f'确认代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}确认代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert bdata.get("data").get("status") == 'Confirming', \
-            f'status不正确,确认后:{bdata.get("data").get("status")}'
+            f'{YELLOW}status不正确,确认后:{bdata.get("data").get("status")}'
 
         # 查询代收记录
         Test_api.bill_id = adata.get('data').get("bill_id")
@@ -135,10 +135,10 @@ class Test_api:
         print("查询代收记录", cdata)
 
         assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success' and cdata.get("data") != [], \
-            f'查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
+            f'{YELLOW}查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
 
     # 确认代收交易-upi-bank
-    # （需要保证脚本测试商户配置，bank最大接单金额大于cashier，不然会导致cashier把bank单子接走，用例失败）
+    # 需要保证脚本测试商户配置，bank最大接单金额大于cashier，不然会导致cashier把bank单子接走，用例失败
     @staticmethod
     def test_ConfirmReceipt1():
 
@@ -164,7 +164,7 @@ class Test_api:
         print("创建代收记录", adata)
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         # 记录record_id
         record_ida = adata.get("data").get("record_id")
         # 确认代收记录
@@ -179,25 +179,25 @@ class Test_api:
                 break
             else:
                 if time.time() - start_time > timeout:
-                    print("10秒未查找到该流水！utr获取失败")
+                    print(f"{YELLOW}10秒未查找到该流水！utr获取失败")
                     break
 
         bdata = API.ConfirmReceipt(bill_id=bill_id, pay_proof_id=utr_id)
         print("确认代收记录", bdata)
 
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'确认代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}确认代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert bdata.get("data").get("status") in ['Confirming', 'Success'], \
-            f'status不正确,确认后:{bdata.get("data").get("status")}'
+            f'{YELLOW}status不正确,确认后:{bdata.get("data").get("status")}'
 
         # 查询代收记录
         cdata = API.GetReceipt(record_id=record_ida)
         print("查询代收记录", cdata)
 
         assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success' and cdata.get("data") != [],\
-            f'查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
+            f'{YELLOW}查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
         assert cdata.get("data").get("status") in ['Confirming', 'Success'], \
-            f'status不正确,确认后:{cdata.get("data").get("status")}'
+            f'{YELLOW}status不正确,确认后:{cdata.get("data").get("status")}'
 
     # 取消代收交易-upi
     @staticmethod
@@ -220,25 +220,26 @@ class Test_api:
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
 
-        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'{YELLOW}创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 取消代收记录
         bdata = API.CancelReceipt(bill_id)
         print("取消代收记录", bdata)
 
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'取消代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}取消代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert bdata.get("data").get("status") == 'Failure' and bdata.get("data").get("reason") == 'USER_CANCEL', \
-            f'status不正确,取消后:{bdata.get("data").get("status")}， reason={bdata.get("data").get("reason")}'
+            f'{YELLOW}status不正确,取消后:{bdata.get("data").get("status")}， reason={bdata.get("data").get("reason")}'
 
         # 查询代收记录
         cdata = API.GetReceipt(bill_id=bill_id)
         print("查询代收记录", cdata)
 
         assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success' and cdata.get("data") != [], \
-            f'查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
+            f'{YELLOW}查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
         assert cdata.get("data").get("status") == 'Failure' and cdata.get("data").get("reason") == 'USER_CANCEL', \
-            f'status不正确,取消后:{cdata.get("data").get("status")}， reason={cdata.get("data").get("reason")}'
+            f'{YELLOW}status不正确,取消后:{cdata.get("data").get("status")}， reason={cdata.get("data").get("reason")}'
 
     # 取消代收交易-upi-bank
     @staticmethod
@@ -261,24 +262,24 @@ class Test_api:
                                   f'{payment_method[0]}')
         print("创建代收记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 取消代收记录
         bdata = API.CancelReceipt(bill_id)
         print("取消代收记录", bdata)
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'取消代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}取消代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert bdata.get("data").get("status") == 'Failure' and bdata.get("data").get("reason") == 'USER_CANCEL', \
-            f'status不正确,取消后:{bdata.get("data").get("status")}， reason={bdata.get("data").get("reason")}'
+            f'{YELLOW}status不正确,取消后:{bdata.get("data").get("status")}， reason={bdata.get("data").get("reason")}'
 
         # 查询代收记录
         cdata = API.GetReceipt(bill_id=bill_id)
         print("查询代收记录", cdata)
 
         assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success' and cdata.get("data") != [],\
-            f'查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
+            f'{YELLOW}查询代收交易失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
         assert cdata.get("data").get("status") == 'Failure' and cdata.get("data").get("reason") == 'USER_CANCEL', \
-            f'status不正确,取消后:{cdata.get("data").get("status")}， reason={cdata.get("data").get("reason")}'
+            f'{YELLOW}status不正确,取消后:{cdata.get("data").get("status")}， reason={cdata.get("data").get("reason")}'
 
     # 查询代收记录-upi-bill_id
     @staticmethod
@@ -302,7 +303,7 @@ class Test_api:
         print("创建代收记录", adata)
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 查询代收记录
         Test_api.bill_id = adata.get('data').get("bill_id")
@@ -310,9 +311,9 @@ class Test_api:
         print("查询代收记录", bdata)
 
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [],\
-            f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert adata.get("data").get("status") == bdata.get("data").get("status"), \
-            f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
+            f'{YELLOW}status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
 
     # 查询代收记录-upi-record_id
     @staticmethod
@@ -336,7 +337,7 @@ class Test_api:
         print("创建代收记录", adata)
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 查询代收记录
         record_ida = adata.get('data').get("record_id")
@@ -349,9 +350,9 @@ class Test_api:
         print("查询代收记录", bdata)
 
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [],\
-            f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert adata.get("data").get("status") == bdata.get("data").get("status"), \
-            f'status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
+            f'{YELLOW}status不一致,创建:{adata.get("data").get("state")}和查询:{bdata.get("data").get("status")}'
 
     # 查询代收记录列表-time
     @staticmethod
@@ -365,9 +366,9 @@ class Test_api:
         print("查询代收记录列表", adata)
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询代收交易列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}查询代收交易列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) > 4, \
-            f'查询结果订单数量不准确:{adata.get("data").get('records')}'
+            f'{YELLOW}查询结果订单数量不准确:{adata.get("data").get('records')}'
 
     # 查询代收记录列表-upi-record_ids
     @staticmethod
@@ -384,9 +385,9 @@ class Test_api:
         print("查询代收记录列表", adata)
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询代收交易列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}查询代收交易列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) == len(record_ids), \
-            f'查询结果订单数量不准确:{adata.get("data").get('records')}'
+            f'{YELLOW}查询结果订单数量不准确:{adata.get("data").get('records')}'
 
     # 查询代收记录列表-upi-bill_ids
     @staticmethod
@@ -403,9 +404,9 @@ class Test_api:
         print("查询代收记录列表", adata)
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询代收交易列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}查询代收交易列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         assert len(adata.get("data").get('records')) == len(bill_ids), \
-            f'查询结果订单数量不准确:{adata.get("data").get('records')}'
+            f'{YELLOW}查询结果订单数量不准确:{adata.get("data").get('records')}'
 
     # 创建收银台-upi
     @staticmethod
@@ -429,12 +430,12 @@ class Test_api:
         print("创建收银台", adata)
 
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建收银台代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建收银台代收交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         url = adata.get('data').get('checkout_url')
         url_status_code = send_request(url, 'get', )[0].status_code
 
-        assert url_status_code == 200, f'生成收银台链接访问失败，状态码[{url_status_code}]，链接[{url}]'
+        assert url_status_code == 200, f'{YELLOW}生成收银台链接访问失败，状态码[{url_status_code}]，链接[{url}]'
 
         # 查询代收记录
         Test_api.bill_id = adata.get('data').get("bill_id")
@@ -442,7 +443,7 @@ class Test_api:
         print("查询代收记录", bdata)
 
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success' and bdata.get("data") != [], \
-            f'查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代收交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
 
     # 创建代付记录-upi
     @staticmethod
@@ -465,7 +466,7 @@ class Test_api:
                             )
         print("创建代付记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 订单id写入文件，其他查询用例依赖
         record_ida = adata.get('data').get("record_id")
@@ -480,9 +481,9 @@ class Test_api:
         bdata = API.GetPayment(bill_id=Test_api.bill_id)
         print("查询代付记录", bdata)
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert bdata.get("data").get("status") in ["Pending"], \
-            f'status不正确:{bdata.get("data").get("status")}'
+            f'{YELLOW}status不正确:{bdata.get("data").get("status")}'
 
     # 创建代付记录-cash-NEFT
     @staticmethod
@@ -502,7 +503,7 @@ class Test_api:
                             )
         print("创建代付记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 订单id写入文件，其他查询用例依赖
         record_ida = adata.get('data').get("record_id")
@@ -517,9 +518,9 @@ class Test_api:
         bdata = API.GetPayment(bill_id=Test_api.bill_id)
         print("查询代付记录", bdata)
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert bdata.get("data").get("status") in ["Pending"], \
-            f'status不正确:{bdata.get("data").get("status")}'
+            f'{YELLOW}status不正确:{bdata.get("data").get("status")}'
 
     # 创建代付记录-cash-IMPS
     @staticmethod
@@ -539,7 +540,7 @@ class Test_api:
                             )
         print("创建代付记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 订单id写入文件，其他查询用例依赖
         record_ida = adata.get('data').get("record_id")
@@ -554,9 +555,9 @@ class Test_api:
         bdata = API.GetPayment(bill_id=Test_api.bill_id)
         print("查询代付记录", bdata)
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         assert bdata.get("data").get("status") in ["Pending"], \
-            f'status不正确:{bdata.get("data").get("status")}'
+            f'{YELLOW}status不正确:{bdata.get("data").get("status")}'
 
     # 查询代付记录-bill_id-upi
     @staticmethod
@@ -576,13 +577,13 @@ class Test_api:
                             )
         print("创建代付记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         # 查询代付记录
         Test_api.bill_id = adata.get('data').get("bill_id")
         bdata = API.GetPayment(bill_id=Test_api.bill_id)
         print("查询代付记录", bdata)
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
 
     # 查询代付记录-record_id-upi
     @staticmethod
@@ -602,13 +603,13 @@ class Test_api:
                             )
         print("创建代付记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代付交易失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         # 查询代付记录
         Test_api.record_id = adata.get('data').get("record_id")
         bdata = API.GetPayment(record_id=Test_api.record_id)
         print("查询代付记录", bdata)
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+            f'{YELLOW}查询代付交易失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
 
     # 查询代付列表-record_ids-upi-NEFT-IMPS
     @staticmethod
@@ -621,8 +622,9 @@ class Test_api:
         adata = API.GetPaymentList(record_ids=record_ids)
         print("查询代付记录列表", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) == 3, f'查询结果订单数量不准确:{adata.get("data").get('records')}'
+            f'{YELLOW}查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) == 3, \
+            f'{YELLOW}查询结果订单数量不准确:{adata.get("data").get('records')}'
 
     # 查询代付列表-bill_ids-upi-NEFT-IMPS
     @staticmethod
@@ -635,8 +637,9 @@ class Test_api:
         adata = API.GetPaymentList(bill_ids=bill_ids)
         print("查询代付记录列表", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) == 3, f'查询结果订单数量不准确:{adata.get("data").get('records')}'
+            f'{YELLOW}查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) == 3, \
+            f'{YELLOW}查询结果订单数量不准确:{adata.get("data").get('records')}'
 
     # 查询代付列表-time
     @staticmethod
@@ -647,8 +650,9 @@ class Test_api:
                                    int(str(time.time()).split(".")[0]))
         print("查询代付记录列表", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) > 4, f'查询结果订单数量不准确:{adata.get("data").get('records')}'
+            f'{YELLOW}查询代付记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) > 4, \
+            f'{YELLOW}查询结果订单数量不准确:{adata.get("data").get('records')}'
 
     # 查询现金资产余额-INR
     @staticmethod
@@ -658,8 +662,9 @@ class Test_api:
         adata = API.GetBalance(API.getcoinid(fiat_coin[0]))
         print("查询现金资产余额", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询现金资产余额，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert 'assets' in adata.get("data"), f'查询结果不准确:{adata.get("data").get('assets')}'
+            f'{YELLOW}查询现金资产余额，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert 'assets' in adata.get("data"), \
+            f'{YELLOW}查询结果不准确:{adata.get("data").get('assets')}'
 
     # 查询现金资产余额-USDT
     @staticmethod
@@ -668,9 +673,10 @@ class Test_api:
         # 查询现金资产余额
         adata = API.GetBalance(API.getcoinid(token_coin[0]))
         print("查询现金资产余额", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'查询现金资产余额，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert 'assets' in adata.get("data"), f'查询结果不准确:{adata.get("data").get('assets')}'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'{YELLOW}查询现金资产余额，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert 'assets' in adata.get("data"), \
+            f'{YELLOW}查询结果不准确:{adata.get("data").get('assets')}'
 
     # 法币换代币
     @staticmethod
@@ -680,7 +686,7 @@ class Test_api:
         adata = API.GetBalance(API.getcoinid(fiat_coin[0]))
         print("查询现金资产余额", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询现金资产余额失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}查询现金资产余额失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         coin_amount = adata.get("data").get("assets")[0].get("balance")
         # 法币换代币
         bdata = API.CurrencyToCrypto(f'{API.getcoinid(fiat_coin[0])}',
@@ -688,8 +694,8 @@ class Test_api:
                                      '100',
                                      '0')
         print("法币换代币", bdata)
-        assert bdata.get("code") == 1000 and bdata.get(
-            "msg") == 'Success', f'代币换法币失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
+            f'{YELLOW}代币换法币失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         coin_amount = round(float(coin_amount) - float('100'), 4)
 
         # 订单id写入文件，其他查询用例依赖
@@ -701,8 +707,9 @@ class Test_api:
         cdata = API.GetBalance(API.getcoinid(fiat_coin[0]))
         print("查询现金资产余额", cdata)
         assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success', \
-            f'查询现金资产余额失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
-        assert coin_amount == round(float(cdata.get("data").get("assets")[0].get("balance")), 4), "换币后余额不正确"
+            f'{YELLOW}查询现金资产余额失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
+        assert coin_amount == round(float(cdata.get("data").get("assets")[0].get("balance")), 4), \
+            f"{YELLOW}换币后余额不正确"
 
     # 代币换法币
     @staticmethod
@@ -712,7 +719,7 @@ class Test_api:
         adata = API.GetBalance(API.getcoinid(token_coin[0]))
         print("查询USDT资产余额", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询USDT资产余额失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}查询USDT资产余额失败，错误码[{adata.get("code")}]{adata.get("msg")}'
         coin_amount = adata.get("data").get("assets")[0].get("balance")
         # 代币换法币
         bdata = API.CryptoToCurrency(f'{API.getcoinid(token_coin[0])}',
@@ -720,8 +727,8 @@ class Test_api:
                                      '0.1',
                                      '0')
         print("代币换法币", bdata)
-        assert bdata.get("code") == 1000 and bdata.get(
-            "msg") == 'Success', f'代币换法币失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
+            f'{YELLOW}代币换法币失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
         coin_amount = round(float(coin_amount) - float('0.1'), 4)
 
         # 订单id写入文件，其他查询用例依赖
@@ -733,8 +740,9 @@ class Test_api:
         cdata = API.GetBalance("5ddeeacb13244b0cb772e4af9830f0bf")
         print("查询USDT资产余额", cdata)
         assert cdata.get("code") == 1000 and cdata.get("msg") == 'Success', \
-            f'查询USDT资产余额失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
-        assert coin_amount == round(float(cdata.get("data").get("assets")[0].get("balance")), 4), "换币后余额不正确"
+            f'{YELLOW}查询USDT资产余额失败，错误码[{cdata.get("code")}]{cdata.get("msg")}'
+        assert coin_amount == round(float(cdata.get("data").get("assets")[0].get("balance")), 4), \
+            f"{YELLOW}换币后余额不正确"
 
     # 获取换币记录-record_id
     @staticmethod
@@ -747,8 +755,9 @@ class Test_api:
         adata = API.GetSwap(record_ids[0])
         print("查询现金资产余额", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'获取换币记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data")) > 0,f'获取换币记录失败，未查找到订单'
+            f'{YELLOW}获取换币记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data")) > 0,\
+            f'{YELLOW}获取换币记录失败，未查找到订单'
 
     # 获取换币记录列表-record_ids
     @staticmethod
@@ -760,9 +769,10 @@ class Test_api:
         # 获取换币记录列表
         adata = API.GetSwapList(record_ids)
         print("获取换币记录列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'获取换币记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get("records")) == 2,f'获取换币记录列表失败，查找到的订单数量不对'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'{YELLOW}获取换币记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get("records")) == 2,\
+            f'{YELLOW}获取换币记录列表失败，查找到的订单数量不对'
 
     # 获取换币记录列表-time
     @staticmethod
@@ -772,9 +782,10 @@ class Test_api:
         adata = API.GetSwapList(start_at=int(str(time.time() - 89 * 24 * 3600).split(".")[0]),
                                 end_at=int(str(time.time()).split(".")[0]))
         print("获取换币记录列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'获取换币记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) > 2,f'获取换币记录列表失败，查找到的订单数量不对'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'{YELLOW}获取换币记录列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) > 2, \
+            f'{YELLOW}获取换币记录列表失败，查找到的订单数量不对'
 
     # 查询充值记录
     @staticmethod
@@ -784,8 +795,9 @@ class Test_api:
         adata = API.GetDeposit('DP2025042703445688492079289733120')
         print("查询充值记录", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询充值记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data")) > 0, f'查询充值记录失败，未查找到订单'
+            f'{YELLOW}查询充值记录失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data")) > 0, \
+            f'{YELLOW}查询充值记录失败，未查找到订单'
 
     # 查询充值列表-record_ids
     @staticmethod
@@ -797,8 +809,9 @@ class Test_api:
                                     'DP2025042206292286721519757037568'])
         print("查询充值列表", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询充值列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get("records")) == 3, f'查询充值列表失败，查找到的订单数量不对'
+            f'{YELLOW}查询充值列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get("records")) == 3, \
+            f'{YELLOW}查询充值列表失败，查找到的订单数量不对'
 
     # 查询充值列表-time
     @staticmethod
@@ -809,8 +822,9 @@ class Test_api:
                                    end_at=int(str(time.time()).split(".")[0]))
         print("查询充值列表", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询充值列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get("records")) > 3, f'查询充值列表失败，查找到的订单数量不对(除非三个月内没有充值订单)'
+            f'{YELLOW}查询充值列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get("records")) > 3, \
+            f'{YELLOW}查询充值列表失败，查找到的订单数量不对(除非三个月内没有充值订单)'
 
     # 代币提现
     @staticmethod
@@ -827,7 +841,7 @@ class Test_api:
                                         )
         print("代币提现", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 订单id写入文件，其他查询用例依赖
         record_ida = adata.get('data').get("record_id")
@@ -841,8 +855,9 @@ class Test_api:
         bdata = API.GetWithdraw(bill_id=Test_api.bill_id)
         print("查询提现记录", bdata)
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
-        assert len(bdata.get("data")) > 0, f'查询提现记录失败，未查到订单'
+            f'{YELLOW}查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert len(bdata.get("data")) > 0, \
+            f'{YELLOW}查询提现记录失败，未查到订单'
 
     # 查询提现记录-record_id
     @staticmethod
@@ -858,7 +873,7 @@ class Test_api:
                                         )
         print("代币提现", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 订单id写入文件，其他查询用例依赖
         record_ida = adata.get('data').get("record_id")
@@ -871,8 +886,9 @@ class Test_api:
         bdata = API.GetWithdraw(record_id=adata.get("data").get("record_id"))
         print("查询提现记录", adata)
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
-        assert len(bdata.get("data")) > 0, f'查询提现记录失败，未查到订单'
+            f'{YELLOW}查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert len(bdata.get("data")) > 0, \
+            f'{YELLOW}查询提现记录失败，未查到订单'
 
     # 查询提现记录-bill_id
     @staticmethod
@@ -888,7 +904,7 @@ class Test_api:
                                         )
         print("代币提现", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+            f'{YELLOW}创建代币提现订单失败，错误码[{adata.get("code")}]{adata.get("msg")}'
 
         # 订单id写入文件，其他查询用例依赖
         record_ida = adata.get('data').get("record_id")
@@ -901,8 +917,9 @@ class Test_api:
         bdata = API.GetWithdraw(bill_id=adata.get("data").get("bill_id"))
         print("查询提现记录", adata)
         assert bdata.get("code") == 1000 and bdata.get("msg") == 'Success', \
-            f'查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
-        assert len(bdata.get("data")) > 0, f'查询提现记录失败，未查到订单'
+            f'{YELLOW}查询提现记录失败，错误码[{bdata.get("code")}]{bdata.get("msg")}'
+        assert len(bdata.get("data")) > 0, \
+            f'{YELLOW}查询提现记录失败，未查到订单'
 
     # 查询提现列表-record_ids
     @staticmethod
@@ -915,8 +932,9 @@ class Test_api:
         adata = API.GetWithdrawList(record_ids=record_ids)
         print("查询提现记录列表", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) == 3, f'查询提现记录数量不对，未查到订单'
+            f'{YELLOW}查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) == 3, \
+            f'{YELLOW}查询提现记录数量不对，未查到订单'
 
     # 查询提现列表-bill_ids
     @staticmethod
@@ -930,8 +948,9 @@ class Test_api:
         adata = API.GetWithdrawList(bill_ids=bill_ids)
         print("查询提现记录列表", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) == 3, f'查询提现记录数量不对，未查到订单'
+            f'{YELLOW}查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) == 3, \
+            f'{YELLOW}查询提现记录数量不对，未查到订单'
 
     # 查询提现列表-time
     @staticmethod
@@ -942,8 +961,9 @@ class Test_api:
                                     end_at=int(str(time.time()).split(".")[0]))
         print("查询提现记录列表", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) > 2, f'查询提现记录数量不对，未查到订单'
+            f'{YELLOW}查询提现列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) > 2, \
+            f'{YELLOW}查询提现记录数量不对，未查到订单'
 
     # 获取银行码列表
     @staticmethod
@@ -952,9 +972,10 @@ class Test_api:
         # 获取银行码列表
         adata = API.GetBankList()
         print("获取银行码列表", adata)
-        assert adata.get("code") == 1000 and adata.get(
-            "msg") == 'Success', f'获取银行码列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) > 0, f'获取银行码列表数量不对，未查到'
+        assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
+            f'{YELLOW}获取银行码列表失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) > 0, \
+            f'{YELLOW}获取银行码列表数量不对，未查到'
 
     # 获取收款单配置-INR
     @staticmethod
@@ -964,8 +985,9 @@ class Test_api:
         adata = API.GetServiceConfigsReceipt(f"{API.getcoinid(fiat_coin[0])}")
         print("获取收款单配置", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'获取收款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) > 1, f'获取收款单配置数量不对，至少存在两种支付方式配置'
+            f'{YELLOW}获取收款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) > 1, \
+            f'{YELLOW}获取收款单配置数量不对，至少存在两种支付方式配置'
 
     # 获取付款单配置-INR
     @staticmethod
@@ -975,5 +997,6 @@ class Test_api:
         adata = API.GetServiceConfigsPayment(f"{API.getcoinid(fiat_coin[0])}")
         print("获取付款单配置", adata)
         assert adata.get("code") == 1000 and adata.get("msg") == 'Success', \
-            f'获取付款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
-        assert len(adata.get("data").get('records')) > 0, f'获取付款单配置数量不对，至少存在一种支付方式配置'
+            f'{YELLOW}获取付款单配置失败，错误码[{adata.get("code")}]{adata.get("msg")}'
+        assert len(adata.get("data").get('records')) > 0, \
+            f'{YELLOW}获取付款单配置数量不对，至少存在一种支付方式配置'
