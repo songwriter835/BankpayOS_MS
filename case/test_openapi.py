@@ -172,7 +172,8 @@ class Test_api:
         utr_id = None
         timeout = 10  # 设定超时时间 /s
         while True:
-            water = DB().select_table("select utr_id,amount from `bankpayos-db-bank`.message order by id desc limit 1;")
+            with  DB() as db:
+                water = db.select_table("select utr_id,amount from `bankpayos-db-bank`.message order by id desc limit 1;")
             water_amount = str(int(water[0].get("amount")))
             if water_amount == max_amount and "0000" + record_ida[-8:] == water[0].get("utr_id"):
                 utr_id = water[0].get("utr_id")
