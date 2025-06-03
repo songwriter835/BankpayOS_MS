@@ -1,7 +1,12 @@
+#!/usr/bin/python3
+# -*- coding:utf-8 -*-
+# @time    : 2024/11/3 11:41
 """
-==========  脚本控制  ==========
+==========  环境配置  ==========
 Environment configuration prod/test/local
 """
+__author__ = 'songwriter'
+
 
 # 运行环境 prod/test/local
 env = 'test'

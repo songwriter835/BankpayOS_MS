@@ -1,8 +1,11 @@
-#!/user/bin/env python3
-# -*- coding:UTF-8
-# 2024/10/17 18:41
-import pytest
-from BankpayOS_MS.common.utils import send_request
+#!/usr/bin/python3
+# -*- coding:utf-8 -*-
+# @time    : 2024/11/3 11:41
+"""
+==========  前后置配置  ==========
+User front and back configuration
+"""
+__author__ = 'songwriter'
 
 
 #  登录前置
