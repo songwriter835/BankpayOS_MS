@@ -123,32 +123,60 @@ class OpenApi(object):
         except Exception as e:
             print("****** Please enter the correct currency abbreviation",e)
 
-    def Checkout(self, bill_id, amount, coin_id, country, payment_method, aotug=True):
+    def Checkout(self, bill_id, amount, coin_id, country, return_url, is_buyer_kyc, buyer_name, buyer_email=None, buyer_phone=None, aotug=True):
         """
         创建收银台
         """
-        data={
-            "bill_id":bill_id,
-            "coin_id":coin_id,
-            "amount":amount,
-            "country":country,
-            # UPI/GooglePay/BankTransfer
-            "payment_method":payment_method,
-            "return_url":"https://betamerchantconsole.agentstudio.site/developer/index"
-        }
+        if is_buyer_kyc:
+            data={
+                "bill_id":bill_id,
+                "coin_id":coin_id,
+                "amount":amount,
+                "country":country,
+                "return_url":return_url,
+                "is_buyer_kyc":is_buyer_kyc,
+                "buyer_name": buyer_name
+            }
+        else:
+            data = {
+                "bill_id": bill_id,
+                "coin_id": coin_id,
+                "amount": amount,
+                "country": country,
+                "return_url": return_url,
+                "is_buyer_kyc": is_buyer_kyc,
+                "buyer_email": buyer_email,
+                "buyer_phone": buyer_phone,
+                "buyer_name": buyer_name,
+            }
         return self.Unifiedrequest(data, aotug, inspect.currentframe().f_code.co_name)
 
-    def CreateReceipt(self, bill_id, amount, country, coin_id, payment_method, aotug=True):
+    def CreateReceipt(self, bill_id, amount, coin_id, country, is_buyer_kyc, buyer_name, buyer_vpa, buyer_email=None, buyer_phone=None, aotug=True):
         """
         创建代收订单
         """
-        data = {
-            "bill_id": bill_id,
-            "amount": amount,
-            "coin_id": coin_id,
-            "country": country,
-            "payment_method":payment_method,
-        }
+        if is_buyer_kyc:
+            data = {
+                "bill_id": bill_id,
+                "coin_id": coin_id,
+                "amount": amount,
+                "country": country,
+                "is_buyer_kyc": is_buyer_kyc,
+                "buyer_vpa": buyer_vpa,
+                "buyer_name": buyer_name
+            }
+        else:
+            data = {
+                "bill_id": bill_id,
+                "coin_id": coin_id,
+                "amount": amount,
+                "country": country,
+                "is_buyer_kyc": is_buyer_kyc,
+                "buyer_vpa": buyer_vpa,
+                "buyer_email": buyer_email,
+                "buyer_phone": buyer_phone,
+                "buyer_name": buyer_name,
+            }
         return self.Unifiedrequest(data, aotug, inspect.currentframe().f_code.co_name)
 
     def ConfirmReceipt(self, bill_id, pay_proof_id, aotug=True):
@@ -401,11 +429,12 @@ class OpenApi(object):
             }
         return self.Unifiedrequest(data, aotug, inspect.currentframe().f_code.co_name)
 
-    def GetBankList(self, aotug=True):
+    def GetBankList(self, bank_name, aotug=True):
         """
         获取银行码列表
         """
         data = {
+            "bank_name": bank_name,
         }
         return self.Unifiedrequest(data, aotug, inspect.currentframe().f_code.co_name)
 

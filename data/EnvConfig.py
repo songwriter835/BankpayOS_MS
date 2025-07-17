@@ -9,7 +9,7 @@ __author__ = 'songwriter'
 
 
 # 运行环境 prod/test/local
-env = 'test'
+env = 'prod'
 """=================================  货币列表  ======================================="""
 
 coin_list = {
@@ -79,7 +79,7 @@ addr_info = {
 """=================================  正式环境参数  ======================================="""
 envs = {
     # app-id
-    'APP_ID': 'd7ec22d58086479fbeeae2c62b906060',
+    'APP_ID': '07c129d8bab646eb89637ca4ddad0ab8',
     # 私钥
     'PRIVATE_KEY': '''-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAuQL6jF94LEmJWU7bDYvC48+bj6N2x+0zFq3ZlDQSWzrRWGRd

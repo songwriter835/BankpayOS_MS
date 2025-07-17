@@ -17,6 +17,14 @@ payments_info = {
         "bank_address": "lucknow, uttar pradesh",
         "bank_code": "IDFB0021251"
     },
+    "receipt":{
+        "return_url": "https://betamerchantconsole.agentstudio.site/developer/index",
+        "is_buyer_kyc": True,
+        "buyer_email": "mitendra.shaunak@gmail.com",
+        "buyer_phone": "8090732190",
+        "buyer_name": "Mitendra Shaunak",
+        "buyer_vpa": "8090732190@upi"
+    }
 }
 
 ##### Withdraw_addr
